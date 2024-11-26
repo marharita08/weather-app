@@ -1,0 +1,10 @@
+.heroSection {
+  background-image: url('src/assets/hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 426px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
