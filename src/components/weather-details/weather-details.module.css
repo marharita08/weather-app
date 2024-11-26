@@ -1,0 +1,79 @@
+.weatherDetails {
+  width: 600px;
+  height: 236px;
+  border-radius: 30px;
+  background-color: white;
+  opacity: 85%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cardBody {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+}
+
+.weatherInfo {
+  display: flex;
+  gap: 20px;
+}
+
+.currentWeather {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.temperature, .location {
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 500;
+}
+
+.weatherName {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.weatherDescription, .date, .tempTitle {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--main-grey);
+}
+
+.locationAndDate {
+  text-align: right;
+}
+
+.horizontalDivider {
+  width: 560px;
+  height: 1px;
+  background-color: var(--main-powderblue);
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+.verticalDivider {
+  width: 1px;
+  height: 56px;
+  background-color: var(--main-powderblue);
+}
+
+.minMaxTemp {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
