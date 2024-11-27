@@ -1,5 +1,6 @@
 .weatherDetails {
-  width: 600px;
+  width: calc(100% - 32px);
+  max-width: 600px;
   height: 236px;
   border-radius: 30px;
   background-color: white;
@@ -55,10 +56,13 @@
 
 .locationAndDate {
   text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .horizontalDivider {
-  width: 560px;
+  width: 100%;
   height: 1px;
   background-color: var(--main-powderblue);
 }
@@ -79,4 +83,22 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+@media (width <= 600px) {
+  .weatherDetails {
+    height: 286px;
+    gap: 15px;
+  }
+
+  .cardBody {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .locationAndDate {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 }

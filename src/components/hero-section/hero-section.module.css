@@ -8,4 +8,12 @@
   flex-direction: column;
   align-items: center;
   gap: 50px;
+  box-shadow: 0 5px 10px 0 var(--black-shadow);
+}
+
+@media (width <= 600px) {
+  .heroSection {
+    background-image: url("src/assets/hero-bg-mobile.png");
+    height: 667px;
+  }
 }
