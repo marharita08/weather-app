@@ -10,13 +10,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --main-powderblue: #BFDCE8;
-  --main-blue: #90CAF9;
+  --main-powderblue: #bfdce8;
+  --main-blue: #90caf9;
   --main-black: #212121;
-  --main-grey: #9E9E9E;
-  --light-grey: #FAFAFA;
-  --main-skyblue: #89BFE5;
-  --main-nightblue: #2A344B;
+  --main-grey: #9e9e9e;
+  --light-grey: #fafafa;
+  --main-skyblue: #89bfe5;
+  --main-nightblue: #2a344b;
 }
 
 body {
@@ -24,11 +24,15 @@ body {
   color: var(--main-black);
 }
 
-input, textarea, button, select {
+input,
+textarea,
+button,
+select {
   font-family: inherit;
 }
 
-h1, h2 {
+h1,
+h2 {
   margin: 0;
   padding: 0;
 }
