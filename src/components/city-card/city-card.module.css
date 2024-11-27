@@ -1,0 +1,27 @@
+.card {
+  position: relative;
+  width: 220px;
+  height: 220px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.title {
+  width: 200px;
+  height: 36px;
+  background-color: white;
+  border-radius: 30px;
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  line-height: 24px;
+}
