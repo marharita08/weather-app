@@ -1,0 +1,21 @@
+.searchDropdown {
+  box-sizing: border-box;
+  width: 600px;
+  border-radius: 30px;
+  background-color: white;
+  position: absolute;
+  margin-top: 10px;
+  z-index: 1;
+  padding: 10px;
+  box-shadow: 0 5px 10px 0 var(--black-shadow);
+}
+
+.notFound {
+  padding: 10px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--main-grey);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

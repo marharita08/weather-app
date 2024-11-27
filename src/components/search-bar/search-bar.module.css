@@ -1,6 +1,10 @@
-.searchBar {
+.searchContainer {
   position: relative;
   margin-top: 30px;
+}
+
+.searchBar {
+  position: relative;
 }
 
 .searchInput {

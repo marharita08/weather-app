@@ -4,14 +4,16 @@ import styles from "./search-bar.module.css";
 
 const SearchBar: React.FC = () => {
   return (
-    <div className={styles.searchBar}>
-      <input
-        className={styles.searchInput}
-        placeholder="Start typing to search..."
-      />
-      <button type="button" className={styles.searchButton}>
-        <img src={searchIcon} />
-      </button>
+    <div className={styles.searchContainer}>
+      <div className={styles.searchBar}>
+        <input
+          className={styles.searchInput}
+          placeholder="Start typing to search..."
+        />
+        <button type="button" className={styles.searchButton}>
+          <img src={searchIcon} />
+        </button>
+      </div>
     </div>
   );
 };
