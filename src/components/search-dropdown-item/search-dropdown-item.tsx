@@ -1,11 +1,12 @@
+import { City } from "@/types/city.type";
 import styles from "./search-dropdown-item.module.css";
 
 type Properties = {
-  title: string;
+  city: City;
 };
 
-const SearchDropdownItem: React.FC<Properties> = ({ title }) => {
-  return <div className={styles.item}>{title}</div>;
+const SearchDropdownItem: React.FC<Properties> = ({ city }) => {
+  return <div className={styles.item}>{`${city.name}, ${city.sys.country}`}</div>;
 };
 
 export { SearchDropdownItem };
