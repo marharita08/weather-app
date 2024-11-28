@@ -6,8 +6,10 @@
 
 .image {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover;
+  border-radius: 30px;
 }
 
 .title {
@@ -24,4 +26,13 @@
   align-items: center;
   font-size: 16px;
   line-height: 24px;
+}
+
+@media (width <= 600px) {
+  .card {
+    width: 343px;
+  }
+  .title {
+    width: 323px;
+  }
 }
