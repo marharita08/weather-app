@@ -16,7 +16,10 @@ class HttpService {
   }
 
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<T> = await this.apiClient.get(`${url}&appid=${this.apiKey}`, config);
+    const response: AxiosResponse<T> = await this.apiClient.get(
+      `${url}&appid=${this.apiKey}`,
+      config
+    );
     return response.data;
   }
 }

@@ -8,7 +8,7 @@ type Properties = {
 const CityCard: React.FC<Properties> = ({ title, image }) => {
   return (
     <div className={styles.card}>
-      <img src={image} alt={title} className={styles.image}/>
+      <img src={image} alt={title} className={styles.image} />
       <div className={styles.title}>{title}</div>
     </div>
   );

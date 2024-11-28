@@ -6,7 +6,7 @@ type Properties = {
 };
 
 const SearchDropdownItem: React.FC<Properties> = ({ city }) => {
-  return <div className={styles.item}>{`${city.name}, ${city.sys.country}`}</div>;
+  return <div className={styles.item}>{`${city.name}, ${city.country}`}</div>;
 };
 
 export { SearchDropdownItem };

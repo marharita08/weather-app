@@ -1,7 +1,13 @@
+type CityAPI = {
+  id: number;
+  name: string;
+  sys: { country: string };
+};
+
 type City = {
   id: number;
   name: string;
-  sys: { country: string}
-}
+  country: string;
+};
 
-export { type City };
+export { type City, type CityAPI };
