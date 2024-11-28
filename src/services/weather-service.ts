@@ -13,7 +13,7 @@ class WeatherService {
 
   async get(id: number): Promise<Weather> {
     return parseWeather(
-      await this.httpService.get<WeatherAPI>(`weather?id=${id}`)
+      await this.httpService.get<WeatherAPI>(`weather?id=${id}&units=metric`)
     );
   }
 }

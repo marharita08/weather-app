@@ -1,34 +1,39 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { Weather } from "@/types/weather.type";
 import { ValueOf } from "@/types/value-of.type";
 import { DataStatus } from "@/enums/data-status.enum";
 
-import { getWeather } from "./actions";
+import { findCities } from "./actions";
+import { City } from "@/types/city.type";
 
 type State = {
-  weather: Weather | null;
+  cities: City[] | null;
   dataStatus: ValueOf<typeof DataStatus>;
 };
 
 const initialState: State = {
-  weather: null,
+  cities: null,
   dataStatus: DataStatus.IDLE
 };
 
 const { actions, reducer } = createSlice({
-  name: "weather",
+  name: "cities",
   initialState,
-  reducers: {},
+  reducers: {
+    unsetCities(state) {
+      state.cities = initialState.cities;
+      state.dataStatus = initialState.dataStatus;
+    }
+  },
   extraReducers(builder) {
-    builder.addCase(getWeather.pending, state => {
+    builder.addCase(findCities.pending, state => {
       state.dataStatus = DataStatus.PENDING;
     });
-    builder.addCase(getWeather.fulfilled, (state, action) => {
+    builder.addCase(findCities.fulfilled, (state, action) => {
       state.dataStatus = DataStatus.FULFILLED;
-      state.weather = action.payload;
+      state.cities = action.payload;
     });
-    builder.addCase(getWeather.rejected, state => {
+    builder.addCase(findCities.rejected, state => {
       state.dataStatus = DataStatus.REJECTED;
     });
   }

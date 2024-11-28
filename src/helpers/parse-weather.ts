@@ -12,9 +12,9 @@ function parseWeather(data: WeatherAPI): Weather {
     title,
     description,
     icon,
-    temp,
-    tempMin,
-    tempMax,
+    temp: Math.round(temp),
+    tempMin: Math.round(tempMin),
+    tempMax: Math.round(tempMax),
     city,
     country
   };

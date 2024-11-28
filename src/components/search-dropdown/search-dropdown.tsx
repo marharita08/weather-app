@@ -2,16 +2,20 @@ import { SearchDropdownItem } from "@/components/search-dropdown-item/search-dro
 
 import styles from "./search-dropdown.module.css";
 import { City } from "@/types/city.type";
+import { Loader } from "../loader/loader";
 
 type Properties = {
-  cities: City[];
+  cities: City[] | null;
+  isLoading: boolean;
 };
 
-const SearchDropdown: React.FC<Properties> = ({ cities }) => {
+const SearchDropdown: React.FC<Properties> = ({ cities, isLoading }) => {
   return (
     <div className={styles.searchDropdown}>
-      {cities.length > 0 ? (
-        cities.map(city => <SearchDropdownItem city={city} />)
+      {isLoading ? (
+        <Loader />
+      ) : cities && cities.length > 0 ? (
+        cities.map(city => <SearchDropdownItem city={city} key={city.id} />)
       ) : (
         <div className={styles.notFound}>
           City not found, please try to change your search query

@@ -1,29 +1,49 @@
 import { ChangeEvent, useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import searchIcon from "@/assets/search-icon.svg";
-import { City } from "@/types/city.type";
-import cityService from "@/services/city-service";
 import { SearchDropdown } from "../search-dropdown/search-dropdown";
+import { actions as citiesActions } from "@/store/cities/cities";
+import { AppDispatch, RootState } from "@/store/store";
 
 import styles from "./search-bar.module.css";
+import { DataStatus } from "@/enums/data-status.enum";
 
 const SearchBar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [cities, setCities] = useState<City[] | null>(null);
 
-  const handleSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.value) {
-      setCities(null);
-    }
-    setSearchQuery(e.target.value);
-  }, []);
+  const { cities, dataStatus } = useSelector((state: RootState) => ({
+    cities: state.cities.cities,
+    dataStatus: state.cities.dataStatus
+  }));
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const handleSearchChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (!e.target.value) {
+        dispatch(citiesActions.unsetCities());
+      }
+      setSearchQuery(e.target.value);
+    },
+    [dispatch]
+  );
 
   const handleSearch = useCallback(() => {
-    const fetchCities = async () => {
-      setCities(await cityService.find(searchQuery));
-    };
-    fetchCities();
-  }, [searchQuery]);
+    dispatch(citiesActions.findCities(searchQuery));
+  }, [dispatch, searchQuery]);
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter") {
+        handleSearch();
+      }
+    },
+    [handleSearch]
+  );
+
+  const isLoading = dataStatus === DataStatus.PENDING;
+  const isIdle = dataStatus === DataStatus.IDLE;
 
   return (
     <div className={styles.searchContainer}>
@@ -32,6 +52,7 @@ const SearchBar: React.FC = () => {
           className={styles.searchInput}
           placeholder="Start typing to search..."
           onChange={handleSearchChange}
+          onKeyDown={handleKeyDown}
         />
         <button
           type="button"
@@ -41,7 +62,7 @@ const SearchBar: React.FC = () => {
           <img src={searchIcon} />
         </button>
       </div>
-      {cities && <SearchDropdown cities={cities} />}
+      {!isIdle && <SearchDropdown cities={cities} isLoading={isLoading} />}
     </div>
   );
 };
