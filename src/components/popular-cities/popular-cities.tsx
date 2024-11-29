@@ -11,7 +11,7 @@ const PopularCities = () => {
       </h1>
       <div className={styles.cards}>
         {popularCities.map(city => (
-          <CityCard city={city} />
+          <CityCard city={city} key={city.id} />
         ))}
       </div>
     </div>

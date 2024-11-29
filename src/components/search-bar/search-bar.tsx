@@ -2,12 +2,15 @@ import { ChangeEvent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import searchIcon from "@/assets/search-icon.svg";
-import { SearchDropdown } from "../search-dropdown/search-dropdown";
+import { SearchDropdown } from "@/components/search-dropdown/search-dropdown";
 import { actions as citiesActions } from "@/store/cities/cities";
 import { AppDispatch, RootState } from "@/store/store";
-
-import styles from "./search-bar.module.css";
 import { DataStatus } from "@/enums/data-status.enum";
+import { Theme } from "@/enums/theme.enum";
+
+import baseStyles from "./search-bar-base.module.css";
+import dayStyles from "./search-bar-day.module.css";
+import nightStyles from "./search-bar-night.module.css";
 
 const SearchBar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -45,18 +48,24 @@ const SearchBar: React.FC = () => {
   const isLoading = dataStatus === DataStatus.PENDING;
   const isIdle = dataStatus === DataStatus.IDLE;
 
+  const { theme } = useSelector((state: RootState) => ({
+    theme: state.theme.theme
+  }));
+
+  const themeStyles = theme === Theme.DAY ? dayStyles : nightStyles;
+
   return (
-    <div className={styles.searchContainer}>
-      <div className={styles.searchBar}>
+    <div className={baseStyles.searchContainer}>
+      <div className={baseStyles.searchBar}>
         <input
-          className={styles.searchInput}
+          className={baseStyles.searchInput}
           placeholder="Start typing to search..."
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
         />
         <button
           type="button"
-          className={styles.searchButton}
+          className={`${baseStyles.searchButton} ${themeStyles.searchButton}`}
           onClick={handleSearch}
         >
           <img src={searchIcon} />

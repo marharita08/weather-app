@@ -34,7 +34,6 @@
 
 .searchButton {
   position: absolute;
-  background-color: var(--main-blue);
   border: none;
   border-radius: 50%;
   width: 40px;
