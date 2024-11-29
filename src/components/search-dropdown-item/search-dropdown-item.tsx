@@ -13,18 +13,20 @@ import nightStyles from "./search-dropdown-item-night.module.css";
 
 type Properties = {
   city: City;
+  blurInput: () => void;
 };
 
-const SearchDropdownItem: React.FC<Properties> = ({ city }) => {
+const SearchDropdownItem: React.FC<Properties> = ({ city, blurInput }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       e.preventDefault();
       dispatch(weatherActions.getWeather(city.id));
-      dispatch(citiesActions.unsetCities());
+      dispatch(citiesActions.refreshCitiesAndAdd(city));
+      blurInput();
     },
-    [dispatch, city]
+    [dispatch, city, blurInput]
   );
 
   const { theme } = useSelector((state: RootState) => ({

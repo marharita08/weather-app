@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import searchIcon from "@/assets/search-icon.svg";
@@ -12,9 +12,13 @@ import baseStyles from "./search-bar-base.module.css";
 import dayStyles from "./search-bar-day.module.css";
 import nightStyles from "./search-bar-night.module.css";
 
+const ENTER_KEY = "Enter";
+
 const SearchBar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { cities, dataStatus } = useSelector((state: RootState) => ({
     cities: state.cities.cities,
@@ -26,7 +30,7 @@ const SearchBar: React.FC = () => {
   const handleSearchChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       if (!e.target.value) {
-        dispatch(citiesActions.unsetCities());
+        dispatch(citiesActions.loadCities());
       }
       setSearchQuery(e.target.value);
     },
@@ -39,7 +43,7 @@ const SearchBar: React.FC = () => {
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === "Enter") {
+      if (event.key === ENTER_KEY) {
         handleSearch();
       }
     },
@@ -47,7 +51,6 @@ const SearchBar: React.FC = () => {
   );
 
   const isLoading = dataStatus === DataStatus.PENDING;
-  const isIdle = dataStatus === DataStatus.IDLE;
 
   const { theme } = useSelector((state: RootState) => ({
     theme: state.theme.theme
@@ -65,10 +68,17 @@ const SearchBar: React.FC = () => {
     []
   );
 
+  const blurInput = useCallback(() => {
+    if (inputRef.current) {
+      inputRef.current.blur();
+    }
+  }, []);
+
   return (
     <div className={baseStyles.searchContainer}>
       <div className={baseStyles.searchBar}>
         <input
+          ref={inputRef}
           className={baseStyles.searchInput}
           placeholder="Start typing to search..."
           onChange={handleSearchChange}
@@ -85,8 +95,12 @@ const SearchBar: React.FC = () => {
           <img src={searchIcon} />
         </button>
       </div>
-      {isInputFocused && !isIdle && (
-        <SearchDropdown cities={cities} isLoading={isLoading} />
+      {isInputFocused && (isLoading || cities) && (
+        <SearchDropdown
+          cities={cities}
+          isLoading={isLoading}
+          blurInput={blurInput}
+        />
       )}
     </div>
   );

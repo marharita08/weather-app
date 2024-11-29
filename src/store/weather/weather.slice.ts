@@ -5,6 +5,7 @@ import { ValueOf } from "@/types/value-of.type";
 import { DataStatus } from "@/enums/data-status.enum";
 
 import { getWeather } from "./actions";
+import { SLICE_NAME } from "./slice-name";
 
 type State = {
   weather: Weather | null;
@@ -17,7 +18,7 @@ const initialState: State = {
 };
 
 const { actions, reducer } = createSlice({
-  name: "weather",
+  name: SLICE_NAME,
   initialState,
   reducers: {},
   extraReducers(builder) {
