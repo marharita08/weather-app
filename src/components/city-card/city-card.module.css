@@ -3,6 +3,12 @@
   width: 220px;
   height: 220px;
   cursor: pointer;
+  border-radius: 30px;
+  transition: box-shadow 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 15px var(--black-shadow);
 }
 
 .image {
@@ -27,6 +33,11 @@
   align-items: center;
   font-size: 16px;
   line-height: 24px;
+  transition: transform 0.3s;
+}
+
+.card:hover .title {
+  transform: translateX(-50%) scale(1.05);
 }
 
 @media (width <= 600px) {
