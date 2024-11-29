@@ -14,6 +14,7 @@ import nightStyles from "./search-bar-night.module.css";
 
 const SearchBar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
 
   const { cities, dataStatus } = useSelector((state: RootState) => ({
     cities: state.cities.cities,
@@ -54,6 +55,16 @@ const SearchBar: React.FC = () => {
 
   const themeStyles = theme === Theme.DAY ? dayStyles : nightStyles;
 
+  const handleInputFocus = useCallback(() => setIsInputFocused(true), []);
+  const handleInputBlur = useCallback(() => setIsInputFocused(false), []);
+
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+    },
+    []
+  );
+
   return (
     <div className={baseStyles.searchContainer}>
       <div className={baseStyles.searchBar}>
@@ -62,16 +73,21 @@ const SearchBar: React.FC = () => {
           placeholder="Start typing to search..."
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
         />
         <button
           type="button"
           className={`${baseStyles.searchButton} ${themeStyles.searchButton}`}
           onClick={handleSearch}
+          onMouseDown={handleMouseDown}
         >
           <img src={searchIcon} />
         </button>
       </div>
-      {!isIdle && <SearchDropdown cities={cities} isLoading={isLoading} />}
+      {isInputFocused && !isIdle && (
+        <SearchDropdown cities={cities} isLoading={isLoading} />
+      )}
     </div>
   );
 };

@@ -5,11 +5,11 @@ import { type City } from "@/types/city.type";
 import { actions as weatherActions } from "@/store/weather/weather";
 import { actions as citiesActions } from "@/store/cities/cities";
 import { AppDispatch, RootState } from "@/store/store";
+import { Theme } from "@/enums/theme.enum";
 
 import baseStyles from "./search-dropdown-item-base.module.css";
 import dayStyles from "./search-dropdown-item-day.module.css";
 import nightStyles from "./search-dropdown-item-night.module.css";
-import { Theme } from "@/enums/theme.enum";
 
 type Properties = {
   city: City;
@@ -18,10 +18,14 @@ type Properties = {
 const SearchDropdownItem: React.FC<Properties> = ({ city }) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const handleClick = useCallback(() => {
-    dispatch(weatherActions.getWeather(city.id));
-    dispatch(citiesActions.unsetCities());
-  }, [dispatch, city]);
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      dispatch(weatherActions.getWeather(city.id));
+      dispatch(citiesActions.unsetCities());
+    },
+    [dispatch, city]
+  );
 
   const { theme } = useSelector((state: RootState) => ({
     theme: state.theme.theme
@@ -32,7 +36,7 @@ const SearchDropdownItem: React.FC<Properties> = ({ city }) => {
   return (
     <div
       className={`${baseStyles.item} ${themeStyles.item}`}
-      onClick={handleClick}
+      onMouseDown={handleMouseDown}
     >{`${city.name}, ${city.country}`}</div>
   );
 };
