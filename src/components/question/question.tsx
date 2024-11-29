@@ -1,15 +1,15 @@
 import { useState } from "react";
 
 import arrowIcon from "@/assets/arrow.svg";
+import { type Question } from "@/types/question.type";
 
 import styles from "./question.module.css";
 
 type Properties = {
-  title: string;
-  body: string;
+  question: Question;
 };
 
-const Question: React.FC<Properties> = ({ title, body }) => {
+const Question: React.FC<Properties> = ({ question }) => {
   const [isBodyOpen, setIsBodyOpen] = useState(false);
   const [isRendered, setIsRendered] = useState(false);
 
@@ -26,10 +26,18 @@ const Question: React.FC<Properties> = ({ title, body }) => {
     }
   };
 
+  const renderList = (body: string) => {
+    return body.split("\n").map((line, index) => {
+      if (line.startsWith("•")) {
+        return <li key={index}>{line.slice(1).trim()}</li>;
+      }
+    });
+  };
+
   return (
     <div className={styles.question}>
       <div className={styles.header} onClick={toggleBodyOpen}>
-        <div>{title}</div>
+        <div>{question.title}</div>
         <img
           src={arrowIcon}
           alt="arrow"
@@ -41,7 +49,14 @@ const Question: React.FC<Properties> = ({ title, body }) => {
           className={`${styles.body} ${isBodyOpen ? styles.open : styles.closed}`}
           onAnimationEnd={handleAnimationEnd}
         >
-          {body}
+          {question.body.includes("•") ? (
+            <>
+              {question.body.split("\n")[0] && question.body.split("\n")[0]}
+              <ul>{renderList(question.body)}</ul>
+            </>
+          ) : (
+            question.body
+          )}
         </div>
       )}
     </div>
