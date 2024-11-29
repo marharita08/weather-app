@@ -4,14 +4,16 @@ import { RootState } from "@/store/store";
 import { DataStatus } from "@/enums/data-status.enum";
 import { getFormattedCurrentDate } from "@/helpers/get-formatted-current-date";
 import { envConfig } from "@/configs/env-config";
+import { Loader } from "@/components/loader/loader";
+import { parseIconName } from "@/helpers/parse-icon-name";
 
 import styles from "./weather-details.module.css";
-import { Loader } from "../loader/loader";
 
 const WeatherDetailes: React.FC = () => {
-  const { weather, dataStatus } = useSelector((state: RootState) => ({
+  const { weather, dataStatus, theme } = useSelector((state: RootState) => ({
     weather: state.weather.weather,
-    dataStatus: state.weather.dataStatus
+    dataStatus: state.weather.dataStatus,
+    theme: state.theme.theme
   }));
 
   const isLoading = dataStatus === DataStatus.PENDING;
@@ -31,7 +33,7 @@ const WeatherDetailes: React.FC = () => {
                   <div className={styles.weatherInfo}>
                     <div className={styles.icon}>
                       <img
-                        src={`${envConfig.apiIconUrl}${weather.icon}@2x.png`}
+                        src={`${envConfig.apiIconUrl}${parseIconName(weather.icon, theme)}`}
                       />
                     </div>
                     <div className={styles.currentWeather}>
