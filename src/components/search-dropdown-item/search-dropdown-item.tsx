@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useCallback } from "react";
 
-import { City } from "@/types/city.type";
+import { type City } from "@/types/city.type";
 import { actions as weatherActions } from "@/store/weather/weather";
 import { actions as citiesActions } from "@/store/cities/cities";
 import { AppDispatch } from "@/store/store";
