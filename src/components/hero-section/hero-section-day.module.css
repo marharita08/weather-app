@@ -1,9 +1,9 @@
 .heroSection {
-  background-image: url("src/assets/hero-bg.png");
+  background-image: url("assets/hero-bg.png");
 }
 
 @media (width <= 600px) {
   .heroSection {
-    background-image: url("src/assets/hero-bg-mobile.png");
+    background-image: url("assets/hero-bg-mobile.png");
   }
 }
